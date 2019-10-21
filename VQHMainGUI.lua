@@ -5,16 +5,6 @@ local groupSize = 0
 local MSG_PREFIX = 'VQH_MSG'
 local MSG_REQUEST = 'VQH_REQUEST'
 
--- Initialize
-local MainFrame = CreateFrame('Frame', 'VQH_Main', UIParent)    
-MainFrame:SetScript("OnEvent", function(self, event, ...)
-    events[event](self, ...); -- call one of the functions above
-end);
-
-for k, v in pairs(events) do
-    MainFrame:RegisterEvent(k); -- Register all events for which handlers have been defined
-end
-
 function events:ADDON_LOADED(...)
     pprint('loaded')
 end
@@ -22,6 +12,7 @@ end
 successfulRequest = C_ChatInfo.RegisterAddonMessagePrefix(MSG_PREFIX)
 
 function events:CHAT_MSG_ADDON(...)
+    dprint("CHAT_MSG_ADDON received")
     for i = 1, select('#',...) do
         local v = select(i,...)
         dprint(tostring(v))
@@ -71,4 +62,14 @@ function UpdateQuests()
     -- send out request for quest info
     success = C_ChatInfo.SendAddonMessage(MSG_PREFIX, MSG_REQUEST, "PARTY")
     dprint('UpdateQuests - SendAddonMessage: '..tostring(success))
+end
+
+-- Initialize
+local MainFrame = CreateFrame('Frame', 'VQH_Main', UIParent)    
+MainFrame:SetScript("OnEvent", function(self, event, ...)
+    events[event](self, ...); -- call one of the functions above
+end);
+
+for k, v in pairs(events) do
+    MainFrame:RegisterEvent(k); -- Register all events for which handlers have been defined
 end
