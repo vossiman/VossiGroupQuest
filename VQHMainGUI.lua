@@ -6,7 +6,7 @@ local MSG_PREFIX = 'VQH_MSG'
 local MSG_REQUEST = 'VQH_REQUEST'
 
 function events:ADDON_LOADED(...)
-    pprint('loaded')
+    -- savedvariables loaded
 end
 
 successfulRequest = C_ChatInfo.RegisterAddonMessagePrefix(MSG_PREFIX)
@@ -76,3 +76,5 @@ end);
 for k, v in pairs(events) do
     MainFrame:RegisterEvent(k); -- Register all events for which handlers have been defined
 end
+
+pprint('loaded')
