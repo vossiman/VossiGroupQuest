@@ -13,9 +13,12 @@ successfulRequest = C_ChatInfo.RegisterAddonMessagePrefix(MSG_PREFIX)
 
 function events:CHAT_MSG_ADDON(...)
     dprint("CHAT_MSG_ADDON received")
-    for i = 1, select('#',...) do
-        local v = select(i,...)
-        dprint(tostring(v))
+    local prefix = select(1,...)
+    if (prefix == MSG_PREFIX) then
+        for i = 1, select('#',...) do
+            local v = select(i,...)
+            dprint(tostring(v))
+        end
     end
 end
 
