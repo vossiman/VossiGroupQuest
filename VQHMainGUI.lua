@@ -25,6 +25,7 @@ function events:CHAT_MSG_ADDON(...)
     for i = 1, select('#',...) do
         local v = select(i,...)
         dprint(tostring(v))
+    end
 end
 
 function events:GROUP_ROSTER_UPDATE(...)
