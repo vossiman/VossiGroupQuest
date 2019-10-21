@@ -1,0 +1,8 @@
+## Interface: 11302
+## Title: |cFF00FF00vossi|r Group Quest
+## Author: vossi
+## Version: 0.1
+##SavedVariables: 
+VHelper.lua
+VQHMainGUI.xml
+VQHMainGUI.lua
