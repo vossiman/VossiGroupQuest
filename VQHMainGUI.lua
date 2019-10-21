@@ -2,6 +2,9 @@ local events = {}
 local groupRoster = {}
 local groupSize = 0
 
+local MSG_PREFIX = 'VQH_MSG'
+local MSG_REQUEST = 'VQH_REQUEST'
+
 -- Initialize
 local MainFrame = CreateFrame('Frame', 'VQH_Main', UIParent)    
 MainFrame:SetScript("OnEvent", function(self, event, ...)
@@ -16,8 +19,12 @@ function events:ADDON_LOADED(...)
     pprint('loaded')
 end
 
-function events:PLAYER_LOGOUT(...)
-    
+successfulRequest = C_ChatInfo.RegisterAddonMessagePrefix(MSG_PREFIX)
+
+function events:CHAT_MSG_ADDON(...)
+    for i = 1, select('#',...) do
+        local v = select(i,...)
+        dprint(tostring(v))
 end
 
 function events:GROUP_ROSTER_UPDATE(...)
@@ -58,6 +65,9 @@ function UpdateQuests()
 
     -- set local variables groupsize & roster keys
     groupSize = GetNumGroupMembers()
-    
-        
+    groupRoster = {}
+
+    -- send out request for quest info
+    success = C_ChatInfo.SendAddonMessage(MSG_PREFIX, MSG_REQUEST, "PARTY")
+    dprint('UpdateQuests - SendAddonMessage: '..tostring(success))
 end
